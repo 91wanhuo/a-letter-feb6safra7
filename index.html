@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f5efe5">
+  <meta name="description" content="一封生日来信，五道照片题，一个小惊喜。">
+  <title>有一份想念到了</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./letter.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <span class="brand"><span aria-hidden="true">✦</span> 生日邮局</span>
+      <span class="edition">BIRTHDAY POST</span>
+    </header>
+
+    <section class="paper" id="welcome" aria-labelledby="welcome-title">
+      <div class="art">
+        <svg class="envelope" viewBox="0 0 420 194" aria-hidden="true">
+          <defs>
+            <pattern id="stars" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r=".8" fill="#9e4144" opacity=".2"/></pattern>
+          </defs>
+          <path d="M35 137c34-62 111-102 201-92 47 5 77 36 142 17" stroke="#a14749" stroke-width="1.2" stroke-dasharray="3 6" fill="none" opacity=".52"/>
+          <path d="m53 91 4 11 11 4-11 4-4 11-4-11-11-4 11-4zm298 49 3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#a14749" opacity=".82"/>
+          <g transform="translate(104 48) rotate(-8 110 57)">
+            <rect x="3" y="9" width="220" height="124" rx="6" fill="#a57d69" opacity=".15"/>
+            <rect width="220" height="124" rx="6" fill="#f8e7d4" stroke="#a64c4b" stroke-width="1.6"/>
+            <rect x="8" y="8" width="204" height="108" rx="4" fill="url(#stars)" stroke="#c68679" stroke-dasharray="5 4"/>
+            <path d="M1 122 73 62m146 60-73-60" fill="none" stroke="#c68679" stroke-width="1.4"/>
+            <path d="m2 3 100 77a13 13 0 0 0 16 0L218 3" fill="#f3d5c3" stroke="#a64c4b" stroke-width="1.5"/>
+            <circle cx="110" cy="78" r="18" fill="#94393f"/>
+            <circle cx="110" cy="78" r="14" fill="none" stroke="#efb1a0" stroke-width=".8"/>
+            <path d="M110 85c-5-3-9-7-9-11a5 5 0 0 1 9-2 5 5 0 0 1 9 2c0 4-4 8-9 11Z" fill="#ffdfc8"/>
+          </g>
+          <g transform="translate(312 51) rotate(12)">
+            <circle r="28" fill="#f7eadb" stroke="#9a4447" stroke-width="1.1"/>
+            <circle r="23" fill="none" stroke="#9a4447" stroke-width=".8" stroke-dasharray="2 3"/>
+            <path d="M-11 4h22v8h-22zM-9 4v-7c5 3 13 3 18 0v7M0-4v-7m0 0c-5-2-2-7 0-10 3 5 4 8 0 10Z" fill="none" stroke="#9a4447" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <div class="postmark">寄给今天过生日的你</div>
+      </div>
+      <div class="letter">
+        <p class="eyebrow"><span></span> FROM ME TO YOU <span></span></p>
+        <h1 id="welcome-title">有一份想念到了</h1>
+        <p class="intro"><strong>老婆，生日快乐。</strong><br>今天我不在你身边，礼物先替我到了家。<br>先翻五张照片，找找里面的小线索。</p>
+        <button type="button" class="primary" id="start">拆开这封信 <span aria-hidden="true">→</span></button>
+        <p class="feedback" id="open-error" role="status" hidden>请用生日卡上的二维码打开这封信。</p>
+      </div>
+    </section>
+
+    <section class="paper quiz" id="quiz" aria-labelledby="question" hidden>
+      <div class="quiz-top">
+        <span id="counter"></span>
+        <span class="segments" id="segments" aria-hidden="true"></span>
+      </div>
+      <p class="eyebrow plain" id="station"></p>
+      <figure class="photo">
+        <button type="button" class="photo-button" id="photo-view" aria-label="放大这一题的照片" disabled>
+          <img id="question-photo" alt="" hidden>
+          <span id="photo-loading" role="status">正在取出这张照片…</span>
+        </button>
+        <figcaption>点照片放大</figcaption>
+      </figure>
+      <h2 id="question" tabindex="-1"></h2>
+      <div class="choices" id="choices" role="group" aria-labelledby="question"></div>
+      <p class="feedback" id="feedback" role="status"></p>
+      <button type="button" class="primary" id="next" hidden></button>
+    </section>
+
+    <section class="paper reveal" id="reveal" aria-labelledby="reveal-title" hidden>
+      <p class="eyebrow"><span></span> 第二关 · 找纸条 <span></span></p>
+      <h2 id="reveal-title" tabindex="-1">照片里的线索</h2>
+      <div class="clue-photo">
+        <button class="photo-button" type="button" id="second-view" aria-label="放大第二关的线索照片" hidden><img id="second-photo" alt="第二关的线索照片"></button>
+        <p class="photo-pending" id="photo-pending">这里会放上第二关的照片</p>
+      </div>
+      <p class="paper-trail">去找照片里的地方。<br>那里有一张纸条，等你打开第三关。</p>
+    </section>
+
+    <footer class="foot"><span>从想你的人那里寄出</span><span aria-hidden="true">✦</span></footer>
+  </main>
+  <dialog id="photo-dialog" aria-label="放大的照片">
+    <button id="close-photo" type="button" aria-label="关闭照片">×</button>
+    <img id="large-photo" alt="">
+  </dialog>
+</body>
+</html>
