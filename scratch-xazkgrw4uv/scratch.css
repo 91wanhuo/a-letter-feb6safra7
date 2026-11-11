@@ -1,0 +1,317 @@
+:root {
+  color-scheme: light;
+  --paper: #f7f0e5;
+  --ink: #3c3541;
+  --muted: #796f70;
+  --rose-deep: #954858;
+  --shadow: 0 24px 60px rgba(97, 64, 51, 0.14);
+  font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--paper);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.72), transparent 28rem),
+    radial-gradient(circle at 84% 82%, rgba(227, 187, 166, 0.2), transparent 24rem),
+    var(--paper);
+}
+
+button,
+canvas {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.letter-shell {
+  width: min(100% - 32px, 700px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 28px 0 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.letter-header {
+  position: relative;
+  padding: 48px 12px 30px;
+  text-align: center;
+}
+
+.stamp {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 48px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  color: var(--rose-deep);
+  font-size: 1.15rem;
+  border: 1px solid rgba(149, 72, 88, 0.48);
+  background: rgba(249, 228, 220, 0.74);
+  transform: rotate(7deg);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.36);
+}
+
+.stamp::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed rgba(149, 72, 88, 0.42);
+}
+
+h1 {
+  max-width: 540px;
+  margin: 0 auto;
+  color: #463744;
+  font-size: clamp(2rem, 7vw, 3.3rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.22;
+}
+
+.message-area {
+  flex: 1;
+  display: grid;
+  align-content: start;
+}
+
+.guide {
+  width: min(100%, 520px);
+  margin: 20px auto 30px;
+  padding: 23px 22px;
+  border: 1px dashed rgba(149, 72, 88, 0.45);
+  border-radius: 6px;
+  color: var(--muted);
+  background: rgba(255, 252, 246, 0.72);
+  box-shadow: 0 8px 26px rgba(97, 64, 51, 0.07);
+  line-height: 1.8;
+}
+
+.guide[hidden],
+.scratch-panel[hidden] {
+  display: none;
+}
+
+.guide p {
+  margin: 0;
+}
+
+.scratch-panel {
+  width: min(100%, 560px);
+  margin: 4px auto 30px;
+  text-align: center;
+}
+
+.scratch-card-wrap {
+  position: relative;
+  padding: 14px;
+  background: rgba(255, 252, 246, 0.68);
+  box-shadow: var(--shadow);
+}
+
+.scratch-card-wrap::before,
+.scratch-card-wrap::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 76px;
+  height: 20px;
+  background: rgba(211, 176, 117, 0.36);
+  pointer-events: none;
+}
+
+.scratch-card-wrap::before {
+  top: 6px;
+  left: -18px;
+  transform: rotate(-36deg);
+}
+
+.scratch-card-wrap::after {
+  right: -18px;
+  bottom: 7px;
+  transform: rotate(-36deg);
+}
+
+.scratch-card {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 1.45 / 1;
+  border: 1px solid rgba(114, 83, 69, 0.24);
+  background: #f8f1e7;
+}
+
+.scratch-card::before,
+.scratch-card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scratch-card::before {
+  inset: 12px;
+  border: 1px solid rgba(149, 72, 88, 0.18);
+}
+
+.scratch-card::after {
+  top: 22px;
+  right: 26px;
+  width: 68px;
+  height: 68px;
+  border: 1px solid rgba(149, 72, 88, 0.22);
+  border-radius: 50%;
+  transform: rotate(14deg);
+}
+
+.poem-paper,
+.scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.poem-paper {
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 12%;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(199, 154, 113, 0.07) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(rgba(199, 154, 113, 0.07) 1px, transparent 1px) 0 0 / 28px 28px,
+    #fffaf1;
+}
+
+.poem-line {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  margin: 0;
+  color: #493b43;
+  font-size: clamp(1rem, 4.5vw, 1.65rem);
+  letter-spacing: 0.055em;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.scratch-canvas {
+  z-index: 3;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+  outline: none;
+}
+
+.scratch-canvas:focus-visible {
+  box-shadow: inset 0 0 0 3px rgba(75, 119, 152, 0.82);
+}
+
+.scratch-canvas[aria-disabled="true"] {
+  pointer-events: none;
+}
+
+.scratch-status {
+  min-height: 1.7em;
+  margin: 17px 8px 10px;
+  color: var(--muted);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.scratch-status.is-revealed {
+  color: var(--rose-deep);
+}
+
+.reveal-button {
+  min-height: 42px;
+  margin: 0 auto;
+  padding: 9px 18px;
+  border: 1px solid rgba(149, 72, 88, 0.42);
+  border-radius: 999px;
+  color: var(--rose-deep);
+  background: rgba(255, 248, 241, 0.76);
+  font: inherit;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.reveal-button:hover {
+  background: #fffaf4;
+}
+
+.reveal-button:focus-visible {
+  outline: 3px solid rgba(75, 119, 152, 0.46);
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .letter-shell {
+    width: min(100% - 22px, 700px);
+    padding-top: 18px;
+  }
+
+  .letter-header {
+    padding-top: 43px;
+    padding-bottom: 23px;
+  }
+
+  .stamp {
+    top: 16px;
+    right: 0;
+    transform: rotate(6deg) scale(0.9);
+    transform-origin: top right;
+  }
+
+  .scratch-card-wrap {
+    padding: 9px;
+  }
+
+  .scratch-card-wrap::before,
+  .scratch-card-wrap::after {
+    width: 56px;
+  }
+
+  .scratch-card-wrap::before {
+    left: -7px;
+  }
+
+  .scratch-card-wrap::after {
+    right: -7px;
+  }
+
+  .scratch-card::before {
+    inset: 8px;
+  }
+
+  .poem-paper {
+    padding-inline: 8%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

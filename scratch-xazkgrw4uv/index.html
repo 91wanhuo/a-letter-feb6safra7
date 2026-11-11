@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe4">
+    <title>旅途刮刮卡</title>
+    <link rel="stylesheet" href="scratch.css">
+  </head>
+  <body>
+    <main class="letter-shell">
+      <header class="letter-header">
+        <div class="stamp" aria-hidden="true">♥</div>
+        <h1>旅途刮刮卡</h1>
+      </header>
+
+      <section class="message-area">
+        <div id="guide" class="guide" hidden>
+          <p>请扫描卡片上的二维码打开。</p>
+        </div>
+
+        <div id="scratch-panel" class="scratch-panel" hidden>
+          <div class="scratch-card-wrap">
+            <div class="scratch-card">
+              <div id="poem-paper" class="poem-paper" aria-hidden="true">
+                <p id="poem-line-one" class="poem-line"></p>
+                <p id="poem-line-two" class="poem-line"></p>
+              </div>
+              <canvas
+                id="scratch-canvas"
+                class="scratch-canvas"
+                role="button"
+                tabindex="0"
+                aria-label="刮开生日卡片，或按 Enter 键揭晓"
+              ></canvas>
+            </div>
+          </div>
+
+          <p id="scratch-status" class="scratch-status" role="status">用手指或鼠标在卡面上来回刮。</p>
+          <button id="reveal-button" class="reveal-button" type="button">直接揭晓</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="scratch.js" defer></script>
+  </body>
+</html>
