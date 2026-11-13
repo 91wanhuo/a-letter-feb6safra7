@@ -82,7 +82,8 @@ async function openPhoto(label) {
     const bytes = new Uint8Array(await response.arrayBuffer());
     if (bytes.length < 29) throw new Error("Photo incomplete");
     const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: bytes.subarray(0, 12) }, photoKey, bytes.subarray(12));
-    return URL.createObjectURL(new Blob([plain], { type: "image/jpeg" }));
+    const type = new DataView(plain).getUint32(0) === 0x89504e47 ? "image/png" : "image/jpeg";
+    return URL.createObjectURL(new Blob([plain], { type }));
   })();
   photos.set(label, pending);
   try {
@@ -210,7 +211,7 @@ async function showSecondPhoto() {
     if (localPhotos) {
       if (!localPhotos.second) return;
     } else {
-      const response = await fetch("./photos/manifest.json");
+      const response = await fetch("./photos/manifest.json", { cache: "no-cache" });
       if (!response.ok || !(await response.json()).second) return;
     }
     pending.textContent = "正在取出第二关的照片…";
